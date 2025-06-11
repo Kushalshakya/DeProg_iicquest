@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { CgProfile } from "react-icons/cg";
 
 function Navbar() {
   return (
@@ -49,12 +48,9 @@ function Navbar() {
 
       <Link
         to="/dashboard"
-        className="flex font-bold text-white bg-emerald-400 hover:bg-teal-400 rounded-4xl p-2 px-8 mr-25"
+        className="flex font-bold text-white bg-emerald-400 hover:bg-teal-400 rounded p-2 px-5 mr-25"
       >
         <span className="mr-2 pt-1">Dashboard</span>
-        <span className="p-1 text-2xl">
-          <CgProfile />
-        </span>
       </Link>
     </nav>
   );
