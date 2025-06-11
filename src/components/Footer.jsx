@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="bg-white text-gray-800 py-10 px-6">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between gap-8">
+    <footer className="bg-white text-gray-800 pt-6 px-6">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between gap-6">
 
         {/* Brand / About */}
         <div>
@@ -35,7 +35,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="text-center text-sm text-gray-400 mt-10">
+      <div className="text-center text-sm text-gray-600 mt-8">
         © {new Date().getFullYear()} JobFinder. All rights reserved.
       </div>
     </footer>

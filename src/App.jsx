@@ -3,9 +3,10 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./components/Home";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
 import Jobs from "./pages/Jobs";
+import Login from "./pages/Login";
 
 function App() {
   const router = createBrowserRouter([
@@ -55,6 +56,16 @@ function App() {
         <>
           <Navbar />
           <Jobs />
+      
+        </>
+      ),
+    },
+            {
+      path: "/login",
+      element: (
+        <>
+          <Navbar />
+          <Login />
       
         </>
       ),

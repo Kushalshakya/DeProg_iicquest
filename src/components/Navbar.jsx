@@ -11,10 +11,10 @@ function Navbar() {
       </div> */}
       <div className="py-4 pl-20 flex items-center justify-between">
         <Link
-          to="/home"
+          to="/"
         
         >
-          <span className="text-slate-400 font-bold font-mono text-3xl">SkillYatra</span>
+          <span className="text-slate-400 font-bold text-3xl">SkillYatra</span>
         </Link>
       </div>
 
@@ -32,12 +32,12 @@ function Navbar() {
         >
           Find Jobs
         </Link>
-        <Link
+        {/* <Link
           to="/dashboard"
           className="text-1xl font-semibold text-gray-700 hover:text-slate-400 transition duration-300"
         >
           Dashboard
-        </Link>
+        </Link> */}
         <Link
           to="/about"
           className="text-1xl font-semibold text-gray-700 hover:text-slate-400 transition duration-300"
@@ -47,10 +47,10 @@ function Navbar() {
       </div>
 
       <Link
-        to="/dashboard"
+        to="/login"
         className="flex font-bold text-white bg-emerald-400 hover:bg-teal-400 rounded p-2 px-5 mr-25"
       >
-        <span className="mr-2 pt-1">Dashboard</span>
+        <span className="mr-2 pt-1">Get Started</span>
       </Link>
     </nav>
   );
