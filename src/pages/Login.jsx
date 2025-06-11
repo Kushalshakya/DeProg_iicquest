@@ -1,22 +1,49 @@
-import React, { useState } from "react";
-import Navbar from "../components/Navbar";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import supabase from "../supabaseClient";
 import Footer from "../components/Footer";
 
 export default function Login() {
   const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
-  const handleVerify = () => {
-    if (!email.endsWith("@gmail.com")) {
-      alert("Please enter a valid Gmail address.");
+  useEffect(() => {
+    // Detect session after magic link redirect
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        navigate("/dashboard"); // or reload
+      }
+    });
+
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        if (event === "SIGNED_IN" && session) {
+          navigate("/dashboard");
+        }
+      }
+    );
+
+    return () => {
+      listener.subscription.unsubscribe();
+    };
+  }, []);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: "http://localhost:5173", // make sure this is whitelisted
+      },
+    });
+
+    if (error) {
+      setMessage("Failed to send link.");
     } else {
-      // Proceed with verification logic
-      alert("Email verified!");
+      console.log("Magic link sent to:", email);
+      setMessage("Check your email for the magic link.");
     }
-  };
-
-  const handleGoogleLogin = () => {
-    // Handle Google Sign-In here
-    alert("Redirecting to Google login...");
   };
 
   return (
@@ -27,44 +54,35 @@ export default function Login() {
             Login to SkillYatra
           </h2>
 
-          {/* Gmail input */}
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-gray-700 font-medium mb-2"
-            >
-              Gmail Address
-            </label>
-            <input
-              id="email"
-              type="email"
-              placeholder="example@gmail.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+          <form onSubmit={handleLogin}>
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-gray-700 font-medium mb-2">
+                Gmail Address
+              </label>
+              <input
+                id="email"
+                type="email"
+                placeholder="example@gmail.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
 
-          {/* Verify button */}
-          <button
-            onClick={handleVerify}
-            className="w-full bg-emerald-400 text-white py-2 rounded-lg hover:bg-emerald-500 transition"
-          >
-            Verify
-          </button>
-
-          {/* Continue with Google - separate section */}
-          <div className="mt-8 border-t pt-6 text-center">
             <button
-              onClick={handleGoogleLogin}
-              className="flex w-full border bg-white text-gray-700 py-2 px-20 rounded-lg hover:bg-slate-200 transition"
+              type="submit"
+              className="w-full bg-emerald-400 text-white py-2 rounded-lg hover:bg-emerald-500 transition"
             >
-              <span>
-                <img src="google.png" className="w-8 h-8" />
-              </span>
-              <span className="pt-1 pr-1"> Signin with Google</span>
+              Verify
             </button>
-          </div>
+          </form>
+
+          <p className="mt-4 text-center text-sm text-gray-600">{message}</p>
+
+          <button className="mt-6 w-full">
+            <img src="/src/assets/google.png" alt="Google" className="w-6 mx-auto" />
+          </button>
         </div>
       </div>
       <Footer />

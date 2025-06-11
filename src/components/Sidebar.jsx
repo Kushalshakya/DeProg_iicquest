@@ -22,7 +22,7 @@ function Sidebar({ onClose }) {
   const location = useLocation();
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full border-r-2 border-b-2">
       <div className="flex items-center justify-between p-6 border-b border-gray-200">
         <div className="flex items-center space-x-3">
           <h1 className="text-xl font-bold text-gray-900">SkillYatra</h1>
@@ -72,7 +72,7 @@ function Sidebar({ onClose }) {
             className="w-8 h-8 rounded-full"
           />
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-gray-900 truncate">Alex Johnson</p>
+            <p className="text-sm font-medium text-gray-900 truncate">Alex </p>
             <p className="text-xs text-gray-500 truncate">alex@example.com</p>
           </div>
         </div>

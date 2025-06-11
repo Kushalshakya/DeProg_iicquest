@@ -17,30 +17,6 @@ function Home() {
               Discover top job opportunities and attend live interviews from
               anywhere. Your career journey starts here.
             </p>
-            {/* 
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-10">
-              <input
-                type="text"
-                placeholder="Search job title or company..."
-                className="px-5 py-3 w-72 sm:w-96 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-              <Link
-                to="/jobs"
-                className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300"
-              >
-                Search Jobs
-              </Link>
-            </div> */}
-            {/* 
-            <div className="text-gray-600 text-sm">
-              <span>🚀 Live Interview Feature: </span>
-              <Link
-              to="/"
-              className="font-semibold text-blue-700 underline hover:text-blue-900"
-            >
-              Apply now & connect instantly with recruiters
-            </Link>
-            </div> */}
           </div>
         </div>
         <div className="pr-15 pl-15 mr-25  mt-20 mb-4 border">Image Here</div>

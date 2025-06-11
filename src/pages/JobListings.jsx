@@ -233,7 +233,7 @@ function JobListings() {
       </div>
 
       {/* Filters */}
-      <FilterSection filters={filters} onFilterChange={handleFilterChange} />
+      <FilterSection filters={filters} onFilterChange={handleFilterChange} />np
 
       {/* Results Header */}
       <div className="flex items-center justify-between">

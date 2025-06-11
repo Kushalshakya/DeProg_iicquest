@@ -45,7 +45,7 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Poppins'],
       },
       spacing: {
         '18': '4.5rem',
