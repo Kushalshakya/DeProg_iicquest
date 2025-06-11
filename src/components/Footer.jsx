@@ -36,7 +36,7 @@ export default function Footer() {
       </div>
 
       <div className="text-center text-sm text-gray-600 mt-8">
-        © {new Date().getFullYear()} JobFinder. All rights reserved.
+        © {new Date().getFullYear()} SkillYatra. All rights reserved.
       </div>
     </footer>
   );

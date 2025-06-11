@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 
 function Home() {
   return (
+    <>
+   
     <main className="m-10">
       <div className="flex">
         <div className="pt-6 pl-15">
@@ -160,6 +162,8 @@ function Home() {
       <div className="border-1 my-2"></div>
       <Footer />
     </main>
+    </>
+
   );
 }
 

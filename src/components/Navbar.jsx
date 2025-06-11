@@ -39,7 +39,7 @@ function Navbar() {
           Dashboard
         </Link> */}
         <Link
-          to="/about"
+          to="/layout"
           className="text-1xl font-semibold text-gray-700 hover:text-slate-400 transition duration-300"
         >
           About Us
