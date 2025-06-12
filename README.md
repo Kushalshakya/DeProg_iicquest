@@ -1,6 +1,6 @@
- # SkillYatri
+ # SkillYatra
 
-SkillYatri is an innovative job-search platform designed for talent hubs, offering real-time video interviews and a credit-based queue system to streamline the hiring process.
+SkillYatr is an innovative job-search platform designed for talent hubs, offering real-time video interviews and a credit-based queue system to streamline the hiring process.
 
 ## 🚀 Key Features
 
