@@ -27,8 +27,8 @@ SkillYatra is an innovative job-search platform designed for talent hubs, offeri
 ### 🎥 Real-Time Video Interviews
 SkillYatra uses WebRTC to enable seamless, real-time video interviews between candidates and employers, enhancing communication and reducing hiring delays.
 
-### 🧮 Credit-Based Queue System
-Candidates are placed in interview queues based on their earned credit points, ensuring fair and merit-driven scheduling for interview opportunities.
+### 🧮Queue System
+Candidates are placed in interview queues based on the queue system i.e first come first serve.
 
 ### 📊 Intelligent Job Matching
 SkillYatra connects job seekers with relevant opportunities based on their skills, preferences, and activity, improving match accuracy and satisfaction.
