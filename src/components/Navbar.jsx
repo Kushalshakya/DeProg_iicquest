@@ -51,12 +51,12 @@ function Navbar() {
         >
           Find Jobs
         </Link>
-        <Link
+        {/* <Link
           to="/dashboard"
           className="text-1xl font-semibold text-gray-700 hover:text-slate-400 transition duration-300"
         >
           About Us
-        </Link>
+        </Link> */}
       </div>
 
       {/* Right Side: Auth Button */}

@@ -68,7 +68,7 @@ function UpcomingMeetingCard({ meeting }) {
             {meeting.participants.length > 1 ? "s" : ""}
           </span>
         </div>
-        <button className="btn-primary text-sm">Join Meeting</button>
+        <button className="bg-emerald-400 hover:bg-slate-400 p-2 rounded-lg text-sm">Join Meeting</button>
       </div>
     </div>
   );
@@ -157,7 +157,7 @@ export default function Dashboard() {
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          Welcome back, {fullname}!
+          Welcome back {fullname}!
         </h1>
         <p className="text-gray-600">
           Here's what's happening with your job search today.

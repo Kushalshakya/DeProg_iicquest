@@ -141,7 +141,7 @@ function MeetingCard({ meeting, onJoin }) {
       <div className="flex items-center space-x-3">
         <button
           onClick={() => onJoin(meeting)}
-          className={`btn-primary ${!isUpcoming ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`bg-emerald-600 hover:bg-slate-400 p-2 rounded-lg text-white ${!isUpcoming ? 'opacity-50 cursor-not-allowed' : ''}`}
           disabled={!isUpcoming}
         >
           {isToday ? 'Join Now' : 'Join Meeting'}
@@ -291,7 +291,7 @@ function VideoConference() {
           <h3 className="text-lg font-semibold text-gray-900 mb-2">Start Instant Meeting</h3>
           <p className="text-gray-600 mb-4">Start a meeting right now</p>
           <button
-            className="btn-primary w-full"
+            className="bg-emerald-400 hover:bg-slate-400 p-2 rounded-lg w-full"
             onClick={() => {
               // Generate a unique room ID (could use uuid or Date.now())
               const roomId = Date.now().toString();

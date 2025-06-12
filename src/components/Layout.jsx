@@ -30,7 +30,7 @@ function Layout() {
           >
             <Menu size={24} />
           </button>
-          <h1 className="text-lg font-semibold text-gray-900">Job Portal</h1>
+          <h1 className="text-lg font-semibold text-slate-400">SkillYatra</h1>
           <div className="w-10" />
         </div>
 

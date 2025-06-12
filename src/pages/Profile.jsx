@@ -287,7 +287,7 @@ function Profile() {
           <button
             onClick={handleSaveProfile}
             disabled={saving}
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-60 disabled:cursor-not-allowed"
+            className="px-6 py-2 bg-emerald-400 text-white rounded-lg hover:bg-slate-400 transition disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {saving ? "Saving..." : "Save Profile"}
           </button>
@@ -325,7 +325,7 @@ function Profile() {
               />
               <button
                 onClick={handleAddSkill}
-                className="bg-blue-600 text-white p-1.5 rounded hover:bg-blue-700"
+                className="bg-emerald-400 text-white p-1.5 rounded-lg hover:bg-slate-400"
               >
                 <Plus className="w-4 h-4" />
               </button>
@@ -343,7 +343,7 @@ function Profile() {
         {!isAddingSkill && (
           <button
             onClick={() => setIsAddingSkill(true)}
-            className="flex items-center text-sm text-white bg-blue-600 px-3 py-1.5 rounded hover:bg-blue-700 transition"
+            className="flex items-center text-sm text-white bg-emerald-400 px-3 py-1.5 rounded hover:bg-slate-400 transition"
           >
             <Plus className="w-4 h-4 mr-1" /> Add Skill
           </button>
@@ -441,7 +441,7 @@ function Profile() {
                       setEditingEduIdx(idx);
                       setEduDraft({ ...edu });
                     }}
-                    className="text-blue-500 hover:text-blue-700"
+                    className="text-emerald-400 hover:text-slate-400"
                   >
                     <Edit className="w-5 h-5" />
                   </button>
@@ -459,7 +459,7 @@ function Profile() {
 
         <button
           onClick={handleAddEducation}
-          className="flex items-center text-sm bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 transition"
+          className="flex items-center text-sm bg-emerald-400 hover:bg-slate-400 text-white px-3 py-2 rounded  transition"
         >
           <Plus className="w-4 h-4 mr-1" /> Add Education
         </button>
@@ -495,7 +495,7 @@ function Profile() {
 
         <button
           onClick={handleAddExperience}
-          className="flex items-center text-sm bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 transition"
+          className="flex items-center text-sm bg-emerald-400 hover:bg-slate-400 text-white px-3 py-2 rounded transition"
         >
           <Plus className="w-4 h-4 mr-1" /> Add Experience
         </button>

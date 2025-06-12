@@ -256,7 +256,7 @@ function NewMeetingModal({ isOpen, onClose, onSave }) {
             />
           </div>
           <div className="flex space-x-3 pt-4">
-            <button type="submit" className="btn-primary flex-1">
+            <button type="submit" className="bg-emerald-400 hover:bg-slate-400 p-2 rounded-lg flex-1">
               Schedule Meeting
             </button>
             <button
@@ -403,7 +403,7 @@ function Meetings() {
               <p className="text-gray-600 mb-4">Schedule your first meeting to get started.</p>
               <button
                 onClick={() => setShowNewMeetingModal(true)}
-                className="btn-primary"
+                className="bg-emerald-400 hover:bg-slate-400 p-2 rounded-lg "
               >
                 Schedule Meeting
               </button>

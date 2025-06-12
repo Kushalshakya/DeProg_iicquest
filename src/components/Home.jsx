@@ -121,7 +121,7 @@ function Home() {
             </div>
             <button
               type="submit"
-              className="w-full sm:w-auto px-5 py-3 text-white bg-blue-600 hover:bg-blue-700 rounded-lg font-medium"
+              className="w-full sm:w-auto px-5 py-3 text-white bg-emerald-400 hover:bg-slate-400 rounded-lg font-medium"
             >
               Subscribe
             </button>

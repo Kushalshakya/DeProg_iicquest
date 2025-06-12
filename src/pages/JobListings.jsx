@@ -189,7 +189,7 @@ function JobCard({ job }) {
         </div>
         {job.salary && (
           <div className="flex items-center text-primary-600 font-semibold">
-            <DollarSign className="w-4 h-4 mr-1" />
+            <span className="w-4 h-4 mr-5 mb-2">NPR:</span> {/* Changed from DollarSign to NPR */}
             <span>{job.salary}</span>
           </div>
         )}
@@ -217,7 +217,7 @@ function JobCard({ job }) {
         </div>
       )}
       <div className="flex items-center space-x-3">
-        <button className="flex-1 btn-primary" onClick={handleApply}>
+        <button className="flex-1 bg-emerald-400 hover:bg-slate-400 p-2 rounded-lg" onClick={handleApply}>
           Apply Now
         </button>
       </div>
