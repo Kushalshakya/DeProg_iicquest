@@ -278,7 +278,7 @@ function JobListings() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Job Listings</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2 mt-10">Job Listings</h1>
         <p className="text-gray-600">Discover your next career opportunity</p>
       </div>
 

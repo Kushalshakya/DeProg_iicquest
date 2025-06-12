@@ -9,28 +9,25 @@ function generateRandomUsername() {
 }
 
 function StatCard({ icon: Icon, title, value, change, changeType }) {
-  // your StatCard code unchanged
   return (
-    <div className="p-8">
-      <div className="card p-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm font-medium text-gray-600 mb-1">{title}</p>
-            <p className="text-3xl font-bold text-gray-900">{value}</p>
-            {change && (
-              <p
-                className={`text-sm mt-2 flex items-center ${
-                  changeType === "positive" ? "text-green-600" : "text-red-600"
-                }`}
-              >
-                <TrendingUp className="w-4 h-4 mr-1" />
-                {change}
-              </p>
-            )}
-          </div>
-          <div className="p-3 bg-primary-50 rounded-full">
-            <Icon className="w-6 h-6 text-primary-600" />
-          </div>
+    <div className="card p-10 h-full flex flex-col justify-between">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="font-medium text-gray-600 mb-2">{title}</p>
+          <p className="text-3xl font-bold text-gray-900">{value}</p>
+          {change && (
+            <p
+              className={`text-sm mt-2 flex items-center ${
+                changeType === "positive" ? "text-green-600" : "text-red-600"
+              }`}
+            >
+              <TrendingUp className="w-4 h-4 mr-1" />
+              {change}
+            </p>
+          )}
+        </div>
+        <div className="p-3 bg-primary-50 rounded-full">
+          <Icon className="w-6 h-6 text-primary-600" />
         </div>
       </div>
     </div>
@@ -168,7 +165,7 @@ export default function Dashboard() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {stats.map((stat, index) => (
           <StatCard key={index} {...stat} />
         ))}

@@ -63,7 +63,7 @@ function Sidebar({ onClose }) {
     <div className="flex flex-col h-full border-r-2 border-b-2">
       <div className="flex items-center justify-between p-6 border-b border-gray-200">
         <div className="flex items-center space-x-3">
-          <h1 className="text-xl font-bold text-gray-900">SkillYatra</h1>
+          <h1 className="text-3xl font-bold text-slate-400 pl-">SkillYatra</h1>
         </div>
         <button
           onClick={onClose}
@@ -94,14 +94,6 @@ function Sidebar({ onClose }) {
 
       {/* Footer */}
       <div className="px-4 py-4 border-t border-gray-200">
-        <div className="flex items-center space-x-2 mb-4">
-          <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200">
-            <Bell className="w-5 h-5 text-gray-600" />
-          </button>
-          <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200">
-            <Settings className="w-5 h-5 text-gray-600" />
-          </button>
-        </div>
         
         <div className="flex items-center space-x-3 p-3 rounded-lg bg-gray-50">
           <img

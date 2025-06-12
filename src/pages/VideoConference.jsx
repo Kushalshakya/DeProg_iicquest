@@ -235,7 +235,7 @@ function VideoConference() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Video Conference</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2 mt-10">Video Conference</h1>
         <p className="text-gray-600">Join virtual meetings and interviews</p>
       </div>
 
@@ -274,7 +274,7 @@ function VideoConference() {
                 meeting={meeting} 
                 onJoin={handleJoinMeeting}
               />
-            ))}
+            ))} 
         </div>
       </div>
 

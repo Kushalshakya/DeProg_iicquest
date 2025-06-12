@@ -216,7 +216,7 @@ function Profile() {
   if (loading) return <div className="p-4 text-center">Loading...</div>;
 
   return (
-    <div className="mx-auto p-4 space-y-8">
+    <div className="mx-10 p-4 space-y-8">
       {/* Profile Info */}
       <div className="bg-white shadow rounded-2xl p-8 md:px-20 space-y-8">
         <h1 className="text-2xl font-bold text-gray-800">Edit Profile</h1>
