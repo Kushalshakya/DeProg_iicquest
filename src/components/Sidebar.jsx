@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { 
   Home, 
@@ -9,6 +10,7 @@ import {
   Bell,
   Settings
 } from 'lucide-react';
+import supabase from '../supabaseClient';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: Home },
@@ -20,6 +22,42 @@ const navigation = [
 
 function Sidebar({ onClose }) {
   const location = useLocation();
+  const [profile, setProfile] = useState({ fullname: '', email: '' });
+
+  useEffect(() => {
+    let isMounted = true;
+    async function fetchProfile() {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user) {
+        const email = session.user.email;
+        const userId = session.user.id;
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('fullname')
+          .eq('id', userId)
+          .single();
+        if (isMounted) {
+          setProfile({
+            fullname: data?.fullname || '',
+            email: email || '',
+          });
+        }
+      }
+    }
+    fetchProfile();
+
+    // Optional: Listen for auth state changes
+    const { data: listener } = supabase.auth.onAuthStateChange(() => {
+      fetchProfile();
+    });
+
+    return () => {
+      isMounted = false;
+      if (listener && typeof listener.subscription?.unsubscribe === 'function') {
+        listener.subscription.unsubscribe();
+      }
+    };
+  }, []);
 
   return (
     <div className="flex flex-col h-full border-r-2 border-b-2">
@@ -72,8 +110,8 @@ function Sidebar({ onClose }) {
             className="w-8 h-8 rounded-full"
           />
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-gray-900 truncate">Alex </p>
-            <p className="text-xs text-gray-500 truncate">alex@example.com</p>
+            <p className="text-sm font-medium text-gray-900 truncate">{profile.fullname || "User"}</p>
+            <p className="text-xs text-gray-500 truncate">{profile.email}</p>
           </div>
         </div>
       </div>

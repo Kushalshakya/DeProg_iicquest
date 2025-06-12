@@ -1,43 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import supabase from "../supabaseClient";
+import React, { useState } from "react";
+// import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+
+import supabase from '../supabaseClient'
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    // Detect session after magic link redirect
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        navigate("/dashboard"); // or reload
-      }
-    });
-
-    const { data: listener } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        if (event === "SIGNED_IN" && session) {
-          navigate("/dashboard");
-        }
-      }
-    );
-
-    return () => {
-      listener.subscription.unsubscribe();
-    };
-  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        emailRedirectTo: "http://localhost:5173", // make sure this is whitelisted
-      },
-    });
-
+    const { error } = await supabase.auth.signInWithOtp({ email });
     if (error) {
       setMessage("Failed to send link.");
     } else {
@@ -54,9 +27,13 @@ export default function Login() {
             Login to SkillYatra
           </h2>
 
+          {/* Gmail input */}
           <form onSubmit={handleLogin}>
             <div className="mb-4">
-              <label htmlFor="email" className="block text-gray-700 font-medium mb-2">
+              <label
+                htmlFor="email"
+                className="block text-gray-700 font-medium mb-2"
+              >
                 Gmail Address
               </label>
               <input
@@ -66,22 +43,18 @@ export default function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
               />
             </div>
 
             <button
-              type="submit"
               className="w-full bg-emerald-400 text-white py-2 rounded-lg hover:bg-emerald-500 transition"
             >
               Verify
             </button>
           </form>
 
-          <p className="mt-4 text-center text-sm text-gray-600">{message}</p>
-
-          <button className="mt-6 w-full">
-            <img src="/src/assets/google.png" alt="Google" className="w-6 mx-auto" />
+          <button>
+            <img src="/src/assets/google.png" />
           </button>
         </div>
       </div>

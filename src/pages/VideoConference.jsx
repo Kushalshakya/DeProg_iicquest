@@ -259,14 +259,7 @@ function VideoConference() {
           <button className="btn-secondary w-full">Schedule</button>
         </div>
 
-        <div className="card p-6 text-center">
-          <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-            <ExternalLink className="w-6 h-6 text-purple-600" />
-          </div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">Join with ID</h3>
-          <p className="text-gray-600 mb-4">Enter a meeting ID to join</p>
-          <button className="btn-secondary w-full">Join</button>
-        </div>
+        
       </div>
 
       {/* Upcoming Meetings */}
@@ -296,10 +289,7 @@ function VideoConference() {
                 <p className="text-sm text-gray-600">January 10, 2024 • 9:00 AM • 30 minutes</p>
               </div>
               <div className="flex items-center space-x-2">
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                  Completed
-                </span>
-                <button className="btn-secondary text-sm">View Recording</button>
+                <button className="btn-secondary text-sm">Completed</button>
               </div>
             </div>
           </div>
@@ -311,10 +301,7 @@ function VideoConference() {
                 <p className="text-sm text-gray-600">January 8, 2024 • 3:00 PM • 45 minutes</p>
               </div>
               <div className="flex items-center space-x-2">
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                  Completed
-                </span>
-                <button className="btn-secondary text-sm">View Recording</button>
+                <button className="btn-secondary text-sm">Not Attended</button>
               </div>
             </div>
           </div>

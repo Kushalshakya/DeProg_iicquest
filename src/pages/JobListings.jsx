@@ -7,7 +7,8 @@ import {
   Clock, 
   DollarSign, 
   Bookmark,
-  ExternalLink
+  ExternalLink,
+  Plus
 } from 'lucide-react';
 import { jobListings } from './mockData';
 
@@ -233,7 +234,7 @@ function JobListings() {
       </div>
 
       {/* Filters */}
-      <FilterSection filters={filters} onFilterChange={handleFilterChange} />np
+      <FilterSection filters={filters} onFilterChange={handleFilterChange} />
 
       {/* Results Header */}
       <div className="flex items-center justify-between">
@@ -241,12 +242,17 @@ function JobListings() {
           Showing {filteredJobs.length} job{filteredJobs.length !== 1 ? 's' : ''} 
           {searchTerm && ` for "${searchTerm}"`}
         </p>
-        <select className="input-field w-auto">
-          <option>Sort by: Most Recent</option>
-          <option>Sort by: Most Relevant</option>
-          <option>Sort by: Salary (High to Low)</option>
-          <option>Sort by: Salary (Low to High)</option>
-        </select>
+        <div className="wrap gap-3 flex items-center">
+          <select className="input-field w-auto">
+            <option>Sort by: Most Recent</option>
+            <option>Sort by: Most Relevant</option>
+            <option>Sort by: Salary (High to Low)</option>
+            <option>Sort by: Salary (Low to High)</option>
+          </select>
+          <button className="btn-primary px-2">
+            <Plus />
+          </button>
+        </div>
       </div>
 
       {/* Job Cards */}
