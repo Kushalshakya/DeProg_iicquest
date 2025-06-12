@@ -15,6 +15,7 @@ import Sidebar from "./components/Sidebar";
 import Login from "./pages/Login";
 import Meetings from "./pages/Meetings";
 import Loader from "./components/Loader";
+import Findjobs from "./pages/Findjobs";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -44,6 +45,15 @@ function App() {
         <>
           <Navbar />
           <Home />
+        </>
+      ),
+    },
+        {
+      path: "/findjobs",
+      element: (
+        <>
+          <Navbar />
+          <Findjobs />
         </>
       ),
     },

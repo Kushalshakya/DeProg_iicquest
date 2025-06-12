@@ -46,7 +46,7 @@ function Navbar() {
           Home
         </Link>
         <Link
-          to="/joblistings"
+          to="/findjobs"
           className="text-1xl font-semibold text-gray-700 hover:text-slate-400 transition duration-300"
         >
           Find Jobs

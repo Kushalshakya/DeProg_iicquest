@@ -21,7 +21,7 @@ export default function Login() {
 
   return (
     <main>
-      <div className="h-150 flex items-center justify-center bg-gray-100 px-4">
+      <div className=" flex items-center justify-center bg-gray-100 py-20">
         <div className="bg-white p-10 rounded-xl shadow-md w-full max-w-md">
           <h2 className="text-2xl font-bold mb-6 text-center">
             Login to SkillYatra
@@ -47,15 +47,15 @@ export default function Login() {
             </div>
 
             <button
-              className="w-full bg-emerald-400 text-white py-2 rounded-lg hover:bg-emerald-500 transition"
+              className="w-full mb-3 bg-emerald-400 text-white py-2.5 rounded-lg hover:bg-emerald-500 transition"
             >
               Verify
             </button>
           </form>
-
-          <button>
-            <img src="/src/assets/google.png" />
-          </button>
+{/* 
+          <button className="bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+            <img src="/src/assets/google.png" width={300} height={100}/>
+          </button> */}
         </div>
       </div>
       <Footer />
