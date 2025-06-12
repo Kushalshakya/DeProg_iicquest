@@ -45,27 +45,6 @@ Accessible from anywhere via the web, SkillYatra requires no downloads or instal
 ### 🧑‍💼 Employer Dashboard
 Employers can manage job postings, view candidate profiles, and schedule interviews—all from a centralized, user-friendly dashboard.
 
-## 📘 How to Use SkillYatra
-
-1. **Go to Website**  
-   _[Placeholder: Add instructions for accessing the AD Some AI website]_
-
-2. **Login / Register**  
-   _[Placeholder: Add steps for user registration and login]_
-
-3. **Dashboard**  
-   _[Placeholder: Describe dashboard features and navigation]_
-
-4. **Navigate to Ad Generation Page**  
-   _[Placeholder: Explain how to access the ad generation section]_
-
-5. **Input Keywords**  
-   _[Placeholder: Detail the keyword input process and categories]_
-
-7. **Download or Use**  
-   _[Placeholder: Explain how users can download or use the generated ads_here]_
-
-
 ## 📌 Summary
 
 SkillYatra combines modern web technologies with a credit-based interview system to create a seamless job-search experience. With real-time communication and fair scheduling, it empowers both job seekers and employers to connect more effectively.
