@@ -11,7 +11,7 @@ SkillYatri is an innovative job-search platform designed for talent hubs, offeri
 ## 🛠️ Technologies Used
 
 - **Frontend**: React.js
-- **Backend**: Supabase (authentication, database, API handling
+- **Backend**: Supabase (authentication, database, API handling)
 - **Database**: Supabase
 - **Other**: WebRTC, REST APIs
 
