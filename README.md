@@ -22,30 +22,30 @@ SkillYatra is an innovative job-search platform designed for talent hubs, offeri
 - **Rabin Gaire** – Frontend, backend, server development, and API communications  
 - **Mingma Sherpa** – Data analytics and frontend development.
 
-## 🚀 Key Features – SkillYatri
+## 🚀 Key Features – SkillYatra
 
 ### 🎥 Real-Time Video Interviews
-SkillYatri uses WebRTC to enable seamless, real-time video interviews between candidates and employers, enhancing communication and reducing hiring delays.
+SkillYatra uses WebRTC to enable seamless, real-time video interviews between candidates and employers, enhancing communication and reducing hiring delays.
 
 ### 🧮 Credit-Based Queue System
 Candidates are placed in interview queues based on their earned credit points, ensuring fair and merit-driven scheduling for interview opportunities.
 
 ### 📊 Intelligent Job Matching
-SkillYatri connects job seekers with relevant opportunities based on their skills, preferences, and activity, improving match accuracy and satisfaction.
+SkillYatra connects job seekers with relevant opportunities based on their skills, preferences, and activity, improving match accuracy and satisfaction.
 
 ### 🌐 Supabase-Powered Backend
 All backend operations—including authentication, database management, and API handling—are powered by Supabase, ensuring scalability and reliability.
 
 ### 💡 Scalable & Efficient
-Designed to support growing talent hubs and businesses, SkillYatri handles high volumes of users and interviews without compromising performance.
+Designed to support growing talent hubs and businesses, SkillYatra handles high volumes of users and interviews without compromising performance.
 
 ### 🖥️ Cloud-Based Platform
-Accessible from anywhere via the web, SkillYatri requires no downloads or installations, making it easy for users to get started instantly.
+Accessible from anywhere via the web, SkillYatra requires no downloads or installations, making it easy for users to get started instantly.
 
 ### 🧑‍💼 Employer Dashboard
 Employers can manage job postings, view candidate profiles, and schedule interviews—all from a centralized, user-friendly dashboard.
 
-## 📘 How to Use SkillYatri
+## 📘 How to Use SkillYatra
 
 1. **Go to Website**  
    _[Placeholder: Add instructions for accessing the AD Some AI website]_
@@ -68,4 +68,4 @@ Employers can manage job postings, view candidate profiles, and schedule intervi
 
 ## 📌 Summary
 
-SkillYatri combines modern web technologies with a credit-based interview system to create a seamless job-search experience. With real-time communication and fair scheduling, it empowers both job seekers and employers to connect more effectively.
+SkillYatra combines modern web technologies with a credit-based interview system to create a seamless job-search experience. With real-time communication and fair scheduling, it empowers both job seekers and employers to connect more effectively.
