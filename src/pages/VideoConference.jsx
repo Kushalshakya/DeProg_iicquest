@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import supabase from '../supabaseClient';
 import { 
   Video, 
   VideoOff, 
@@ -13,7 +14,9 @@ import {
   Clock,
   ExternalLink
 } from 'lucide-react';
+import { useNavigate } from "react-router-dom";
 import { upcomingMeetings } from './mockData';
+import MeetingStart from './MeetingStart';
 
 function VideoControls({ isVideoOn, isAudioOn, onToggleVideo, onToggleAudio, onEndCall }) {
   return (
@@ -143,23 +146,43 @@ function MeetingCard({ meeting, onJoin }) {
         >
           {isToday ? 'Join Now' : 'Join Meeting'}
         </button>
-        
-        {meeting.meetingLink && (
-          <button className="btn-secondary">
-            <ExternalLink className="w-4 h-4 mr-2" />
-            Meeting Link
-          </button>
-        )}
       </div>
     </div>
   );
 }
 
 function VideoConference() {
+  const navigate = useNavigate();
+  const [userId, setUserId] = useState(null);
+  const [jobApplications, setJobApplications] = useState([]);
+  const [meetings, setMeetings] = useState([]);
   const [activeView, setActiveView] = useState('upcoming'); // 'upcoming' or 'active'
   const [isVideoOn, setIsVideoOn] = useState(true);
   const [isAudioOn, setIsAudioOn] = useState(true);
   const [activeMeeting, setActiveMeeting] = useState(null);
+
+  useEffect(() => {
+    // Get logged-in user
+    supabase.auth.getUser().then(({ data }) => {
+      setUserId(data?.user?.id || null);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!userId) return;
+    // Fetch job applications where user is applicant
+    supabase
+      .from('job_applications')
+      .select('*, job:jobs(*), meeting:meetings(*)')
+      .eq('applicant_id', userId)
+      .then(({ data }) => setJobApplications(data || []));
+    // Fetch meetings where user is creator
+    supabase
+      .from('meetings')
+      .select('*')
+      .eq('created_by', userId)
+      .then(({ data }) => setMeetings(data || []));
+  }, [userId]);
 
   const handleJoinMeeting = (meeting) => {
     setActiveMeeting(meeting);
@@ -170,6 +193,26 @@ function VideoConference() {
     setActiveMeeting(null);
     setActiveView('upcoming');
   };
+
+  // Render job applications with Join Meeting
+  const appliedMeetings = jobApplications
+    .filter(app => app.meeting) // Only those with a meeting scheduled
+    .map(app => ({
+      ...app.meeting,
+      jobTitle: app.job?.job_title,
+      isCreator: false,
+    }));
+
+  // Render meetings created by user with Start Meeting
+  const createdMeetings = meetings.map(meeting => ({
+    ...meeting,
+    isCreator: true,
+  }));
+
+  // Combine and sort by date
+  const allMeetings = [...appliedMeetings, ...createdMeetings].sort(
+    (a, b) => new Date(a.scheduled_at) - new Date(b.scheduled_at)
+  );
 
   if (activeView === 'active' && activeMeeting) {
     return (
@@ -247,7 +290,16 @@ function VideoConference() {
           </div>
           <h3 className="text-lg font-semibold text-gray-900 mb-2">Start Instant Meeting</h3>
           <p className="text-gray-600 mb-4">Start a meeting right now</p>
-          <button className="btn-primary w-full">Start Meeting</button>
+          <button
+            className="btn-primary w-full"
+            onClick={() => {
+              // Generate a unique room ID (could use uuid or Date.now())
+              const roomId = Date.now().toString();
+              navigate(`/meeting/${roomId}`);
+            }}
+          >
+            Start Meeting
+          </button>
         </div>
 
         <div className="card p-6 text-center">
@@ -274,7 +326,7 @@ function VideoConference() {
                 meeting={meeting} 
                 onJoin={handleJoinMeeting}
               />
-            ))} 
+            ))}
         </div>
       </div>
 
@@ -305,6 +357,29 @@ function VideoConference() {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="space-y-6">
+        <h2 className="text-xl font-bold text-gray-900 mb-6">Your Meetings</h2>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {allMeetings.length === 0 && (
+            <div className="text-gray-500">No meetings scheduled.</div>
+          )}
+          {allMeetings.map(meeting => (
+            <div key={meeting.id} className="card p-6 flex flex-col gap-2">
+              <div className="font-semibold">{meeting.title || meeting.jobTitle}</div>
+              <div className="text-sm text-gray-600">
+                {meeting.scheduled_at && new Date(meeting.scheduled_at).toLocaleString()}
+              </div>
+              <button
+                className="btn-primary"
+                onClick={() => navigate(`/meeting/${meeting.id}`)}
+              >
+                {meeting.isCreator ? "Start Meeting" : "Join Meeting"}
+              </button>
+            </div>
+          ))}
         </div>
       </div>
     </div>

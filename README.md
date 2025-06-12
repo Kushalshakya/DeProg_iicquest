@@ -1,17 +1,17 @@
- # SkillYatri
+- # SkillYatri
 
 SkillYatri is an innovative job-search platform designed for talent hubs, offering real-time video interviews and a credit-based queue system to streamline the hiring process.
 
 ## 🚀 Key Features
 
 - **WebRTC Video Calling**: Real-time video interviews between candidates and employers.
-- **First-Come, First-Served Queue System**: Candidates are scheduled for interviews based on the order they join the queue, ensuring fair and time-based processing.
+- **Credit-Based Queue System**: Candidates are placed in an interview queue based on their earned credit points, ensuring fair and merit-based scheduling.
 - **Job Search & Talent Discovery**: Connects job seekers with employers through a clean, intuitive interface.
 
 ## 🛠️ Technologies Used
 
 - **Frontend**: React.js
-- **Backend**: Supabase (authentication, database, API handling)
+- **Backend**: Supabase (authentication, database, API handling
 - **Database**: Supabase
 - **Other**: WebRTC, REST APIs
 

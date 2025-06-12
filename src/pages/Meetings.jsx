@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import supabase from "../supabaseClient";
 import { 
   Calendar, 
   Clock, 
@@ -9,11 +11,8 @@ import {
   Plus, 
   Edit, 
   Trash2,
-  CheckCircle,
-  AlertCircle,
   ExternalLink
 } from 'lucide-react';
-import { upcomingMeetings, pastMeetings } from './mockData';
 
 function MeetingCard({ meeting, isPast = false, onEdit, onDelete, onJoin }) {
   const getStatusColor = (status) => {
@@ -40,6 +39,11 @@ function MeetingCard({ meeting, isPast = false, onEdit, onDelete, onJoin }) {
     }
   };
 
+  // Format date and time from scheduled_at
+  const dateObj = meeting.scheduled_at ? new Date(meeting.scheduled_at) : null;
+  const date = dateObj ? dateObj.toLocaleDateString() : '';
+  const time = dateObj ? dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+
   return (
     <div className="card p-6 hover:shadow-md transition-all duration-200">
       <div className="flex items-start justify-between mb-4">
@@ -50,34 +54,30 @@ function MeetingCard({ meeting, isPast = false, onEdit, onDelete, onJoin }) {
               {meeting.status}
             </span>
           </div>
-          
           <div className="flex items-center space-x-4 text-sm text-gray-600 mb-3">
             <div className="flex items-center">
               <Calendar className="w-4 h-4 mr-1" />
-              {meeting.date}
+              {date}
             </div>
             <div className="flex items-center">
               <Clock className="w-4 h-4 mr-1" />
-              {meeting.time}
+              {time}
             </div>
             <div className="flex items-center">
               {getTypeIcon(meeting.type)}
               <span className="ml-1">{meeting.type}</span>
             </div>
           </div>
-          
           <div className="flex items-center text-sm text-gray-600 mb-3">
             <Users className="w-4 h-4 mr-1" />
-            <span>{meeting.participants.join(', ')}</span>
+            <span>{Array.isArray(meeting.participants) ? meeting.participants.join(', ') : meeting.participants}</span>
           </div>
-          
           {meeting.location && (
             <div className="flex items-center text-sm text-gray-600 mb-3">
               <MapPin className="w-4 h-4 mr-1" />
               <span>{meeting.location}</span>
             </div>
           )}
-          
           {meeting.notes && (
             <div className="mt-3 p-3 bg-gray-50 rounded-lg">
               <p className="text-sm text-gray-700">
@@ -87,18 +87,16 @@ function MeetingCard({ meeting, isPast = false, onEdit, onDelete, onJoin }) {
           )}
         </div>
       </div>
-      
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
           {!isPast && meeting.status === 'scheduled' && (
             <button
-              onClick={() => onJoin(meeting)}
+              onClick={() => onJoin && onJoin(meeting)}
               className="btn-primary"
             >
               {meeting.type === 'Video Call' ? 'Join Video Call' : 'Join Meeting'}
             </button>
           )}
-          
           {meeting.meetingLink && (
             <button className="btn-secondary">
               <ExternalLink className="w-4 h-4 mr-2" />
@@ -106,20 +104,23 @@ function MeetingCard({ meeting, isPast = false, onEdit, onDelete, onJoin }) {
             </button>
           )}
         </div>
-        
         <div className="flex items-center space-x-2">
-          <button
-            onClick={() => onEdit(meeting)}
-            className="p-2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
-          >
-            <Edit className="w-4 h-4" />
-          </button>
-          <button
-            onClick={() => onDelete(meeting.id)}
-            className="p-2 text-gray-400 hover:text-red-600 transition-colors duration-200"
-          >
-            <Trash2 className="w-4 h-4" />
-          </button>
+          {onEdit && (
+            <button
+              onClick={() => onEdit(meeting)}
+              className="p-2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
+            >
+              <Edit className="w-4 h-4" />
+            </button>
+          )}
+          {onDelete && (
+            <button
+              onClick={() => onDelete(meeting.id)}
+              className="p-2 text-gray-400 hover:text-red-600 transition-colors duration-200"
+            >
+              <Trash2 className="w-4 h-4" />
+            </button>
+          )}
         </div>
       </div>
     </div>
@@ -131,7 +132,7 @@ function NewMeetingModal({ isOpen, onClose, onSave }) {
     title: '',
     date: '',
     time: '',
-    duration: '30 minutes',
+    duration: '30',
     type: 'Video Call',
     participants: '',
     location: '',
@@ -146,7 +147,7 @@ function NewMeetingModal({ isOpen, onClose, onSave }) {
       title: '',
       date: '',
       time: '',
-      duration: '30 minutes',
+      duration: '30',
       type: 'Video Call',
       participants: '',
       location: '',
@@ -160,7 +161,6 @@ function NewMeetingModal({ isOpen, onClose, onSave }) {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
         <h2 className="text-xl font-bold text-gray-900 mb-6">Schedule New Meeting</h2>
-        
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Meeting Title</label>
@@ -172,7 +172,6 @@ function NewMeetingModal({ isOpen, onClose, onSave }) {
               required
             />
           </div>
-          
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Date</label>
@@ -195,7 +194,6 @@ function NewMeetingModal({ isOpen, onClose, onSave }) {
               />
             </div>
           </div>
-          
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Duration</label>
@@ -204,12 +202,12 @@ function NewMeetingModal({ isOpen, onClose, onSave }) {
                 value={formData.duration}
                 onChange={(e) => setFormData({...formData, duration: e.target.value})}
               >
-                <option>15 minutes</option>
-                <option>30 minutes</option>
-                <option>45 minutes</option>
-                <option>1 hour</option>
-                <option>1.5 hours</option>
-                <option>2 hours</option>
+                <option value="15">15 minutes</option>
+                <option value="30">30 minutes</option>
+                <option value="45">45 minutes</option>
+                <option value="60">1 hour</option>
+                <option value="90">1.5 hours</option>
+                <option value="120">2 hours</option>
               </select>
             </div>
             <div>
@@ -225,7 +223,6 @@ function NewMeetingModal({ isOpen, onClose, onSave }) {
               </select>
             </div>
           </div>
-          
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Participants (comma-separated)</label>
             <input
@@ -236,7 +233,6 @@ function NewMeetingModal({ isOpen, onClose, onSave }) {
               onChange={(e) => setFormData({...formData, participants: e.target.value})}
             />
           </div>
-          
           {formData.type === 'In-person' && (
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
@@ -249,7 +245,6 @@ function NewMeetingModal({ isOpen, onClose, onSave }) {
               />
             </div>
           )}
-          
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
             <textarea
@@ -260,7 +255,6 @@ function NewMeetingModal({ isOpen, onClose, onSave }) {
               onChange={(e) => setFormData({...formData, description: e.target.value})}
             />
           </div>
-          
           <div className="flex space-x-3 pt-4">
             <button type="submit" className="btn-primary flex-1">
               Schedule Meeting
@@ -280,28 +274,80 @@ function NewMeetingModal({ isOpen, onClose, onSave }) {
 }
 
 function Meetings() {
+  const [upcomingMeetings, setUpcomingMeetings] = useState([]);
+  const [pastMeetings, setPastMeetings] = useState([]);
   const [activeTab, setActiveTab] = useState('upcoming');
   const [showNewMeetingModal, setShowNewMeetingModal] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [userId, setUserId] = useState(null);
+  const navigate = useNavigate();
 
-  const handleJoinMeeting = (meeting) => {
-    console.log('Joining meeting:', meeting);
-    // This would typically redirect to the video conference page
-  };
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      setUserId(data?.user?.id || null);
+    });
+  }, []);
 
-  const handleEditMeeting = (meeting) => {
-    console.log('Editing meeting:', meeting);
-    // This would open an edit modal
-  };
+  useEffect(() => {
+    async function fetchMeetings() {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from("meetings")
+        .select("*")
+        .order("scheduled_at", { ascending: true });
+      if (!error && data) {
+        const now = new Date();
+        setUpcomingMeetings(data.filter(m => new Date(m.scheduled_at) >= now));
+        setPastMeetings(data.filter(m => new Date(m.scheduled_at) < now));
+      }
+      setLoading(false);
+    }
+    fetchMeetings();
+  }, []);
 
-  const handleDeleteMeeting = (meetingId) => {
-    console.log('Deleting meeting:', meetingId);
-    // This would show a confirmation dialog and delete the meeting
-  };
+  // Only show meetings where the user is the host
+  const myUpcomingMeetings = userId
+    ? upcomingMeetings.filter(m => m.host_id === userId)
+    : [];
+  const myPastMeetings = userId
+    ? pastMeetings.filter(m => m.host_id === userId)
+    : [];
 
-  const handleSaveNewMeeting = (meetingData) => {
-    console.log('Saving new meeting:', meetingData);
-    // This would save the meeting to the backend
-  };
+  async function handleSaveNewMeeting(formData) {
+    if (!userId) {
+      alert("You must be logged in to schedule a meeting.");
+      return;
+    }
+    const scheduled_at = new Date(`${formData.date}T${formData.time}`).toISOString();
+    const { error } = await supabase.from("meetings").insert([
+      {
+        topic: formData.title, // use topic instead of title
+        scheduled_at,
+        duration_minutes: parseInt(formData.duration),
+        host_id: userId,
+        // job_id: ... (if you want to link to a job, add this)
+        // created_at will be set automatically
+      },
+    ]);
+    if (error) {
+      alert("Error scheduling meeting: " + error.message);
+      return;
+    }
+    // Refresh meetings list
+    const { data } = await supabase
+      .from("meetings")
+      .select("*")
+      .order("scheduled_at", { ascending: true });
+    if (data) {
+      const now = new Date();
+      setUpcomingMeetings(data.filter((m) => new Date(m.scheduled_at) >= now));
+      setPastMeetings(data.filter((m) => new Date(m.scheduled_at) < now));
+    }
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="space-y-6">
@@ -311,57 +357,7 @@ function Meetings() {
           <h1 className="text-3xl font-bold text-gray-900 mb-2 mt-10">Meetings</h1>
           <p className="text-gray-600">Manage your interview and meeting schedule</p>
         </div>
-        <button
-          onClick={() => setShowNewMeetingModal(true)}
-          className="btn-primary"
-        >
-          <Plus className="w-4 h-4 mr-2" />
-          Schedule Meeting
-        </button>
       </div>
-
-      {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="card p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600 mb-1">This Week</p>
-              <p className="text-2xl font-bold text-gray-900">3</p>
-              <p className="text-sm text-green-600 mt-1">2 completed</p>
-            </div>
-            <div className="p-3 bg-blue-50 rounded-full">
-              <Calendar className="w-6 h-6 text-blue-600" />
-            </div>
-          </div>
-        </div>
-
-        <div className="card p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600 mb-1">Next Meeting</p>
-              <p className="text-lg font-bold text-gray-900">Tomorrow</p>
-              <p className="text-sm text-gray-600 mt-1">10:00 AM</p>
-            </div>
-            <div className="p-3 bg-green-50 rounded-full">
-              <Clock className="w-6 h-6 text-green-600" />
-            </div>
-          </div>
-        </div>
-
-        <div className="card p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600 mb-1">Success Rate</p>
-              <p className="text-2xl font-bold text-gray-900">85%</p>
-              <p className="text-sm text-green-600 mt-1">+5% this month</p>
-            </div>
-            <div className="p-3 bg-purple-50 rounded-full">
-              <CheckCircle className="w-6 h-6 text-purple-600" />
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Tabs */}
       <div className="border-b border-gray-200">
         <nav className="-mb-px flex space-x-8">
@@ -373,7 +369,7 @@ function Meetings() {
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
             }`}
           >
-            Upcoming ({upcomingMeetings.length})
+            Upcoming ({myUpcomingMeetings.length})
           </button>
           <button
             onClick={() => setActiveTab('past')}
@@ -383,22 +379,21 @@ function Meetings() {
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
             }`}
           >
-            Past ({pastMeetings.length})
+            Past ({myPastMeetings.length})
           </button>
         </nav>
       </div>
-
       {/* Meeting List */}
       <div className="space-y-6">
         {activeTab === 'upcoming' ? (
-          upcomingMeetings.length > 0 ? (
-            upcomingMeetings.map((meeting) => (
+          myUpcomingMeetings.length > 0 ? (
+            myUpcomingMeetings.map((meeting) => (
               <MeetingCard
                 key={meeting.id}
                 meeting={meeting}
-                onJoin={handleJoinMeeting}
-                onEdit={handleEditMeeting}
-                onDelete={handleDeleteMeeting}
+                onJoin={() => navigate(`/meeting/${meeting.id}`)}
+                onEdit={null}
+                onDelete={null}
               />
             ))
           ) : (
@@ -415,14 +410,14 @@ function Meetings() {
             </div>
           )
         ) : (
-          pastMeetings.length > 0 ? (
-            pastMeetings.map((meeting) => (
+          myPastMeetings.length > 0 ? (
+            myPastMeetings.map((meeting) => (
               <MeetingCard
                 key={meeting.id}
                 meeting={meeting}
                 isPast={true}
-                onEdit={handleEditMeeting}
-                onDelete={handleDeleteMeeting}
+                onEdit={null}
+                onDelete={null}
               />
             ))
           ) : (
@@ -434,7 +429,6 @@ function Meetings() {
           )
         )}
       </div>
-
       {/* New Meeting Modal */}
       <NewMeetingModal
         isOpen={showNewMeetingModal}
